@@ -1,0 +1,34 @@
+# Source files
+src/
+tests/
+*.test.ts
+
+# Config files
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+eslint.config.js
+.prettierrc
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Documentation (keep only essential)
+docs/DEVELOPMENT.md
+docs/ARCHITECTURE.md
+
+# OpenSpec
+openspec/
+
+# Test coverage
+coverage/
+
+# Build artifacts
+*.tsbuildinfo
+
+# Temp files
+*.log
+tests/temp-integration/
+

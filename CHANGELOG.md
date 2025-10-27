@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Comprehensive test suite with 58 tests (100% passing)
+- GitHub Actions workflows (test, lint, build, release)
+- Test fixtures for HTML and TXT formats
+- Integration tests for batch conversion and error handling
+- CLI tests for command-line interface
+- Improved HTML converter with body content extraction
+- Script/style tag removal from HTML
+
+### Changed
+
+- Reorganized test structure to `/tests` directory
+- Updated Vitest configuration for happy-dom environment
+- Enhanced error handling in converters
+
+### Fixed
+
+- HTML conversion in happy-dom environment
+- Conversion time tracking (allowing 0ms for very fast conversions)
+
 ## [0.1.0] - 2025-10-27
 
 ### Added

@@ -1,18 +1,18 @@
 # Dependencies
 node_modules/
 
-# Build output
+# Build outputs
 dist/
 *.tsbuildinfo
 
-# Testing
+# Test coverage
 coverage/
-*.lcov
+.nyc_output/
 
-# Environment
-.env
-.env.local
-.env.*.local
+# Temporary files
+tests/temp-integration/
+*.log
+*.tmp
 
 # IDE
 .vscode/
@@ -25,15 +25,7 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Temp
-tmp/
-temp/
-*.tmp
-
+# Environment
+.env
+.env.local
+.env.*.local
