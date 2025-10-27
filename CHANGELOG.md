@@ -7,67 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2025-10-27
-
-### 🎉 Production Release
-
-This is the first stable production release of Transmutation Lite!
-
-**Complete Feature Set**:
-- ✅ 6 document formats (PDF, DOCX, XLSX, PPTX, HTML, TXT)
-- ✅ Result caching with LRU strategy
-- ✅ Comprehensive logging system
-- ✅ Input validation and security
-- ✅ Metrics and monitoring
-- ✅ 148 tests (100% passing)
-- ✅ CI/CD workflows
-- ✅ Complete documentation
-
-### Summary of All Phases
-
-- **Phase 1**: Comprehensive testing (70 tests)
-- **Phase 2**: Performance & optimization (caching, benchmarks)
-- **Phase 3**: Converter improvements (PDF with arXiv testing)
-- **Phase 4**: Developer experience (logging, validation)
-- **Phase 5**: Documentation & examples (5 comprehensive examples)
-- **Phase 6**: CI/CD automation (GitHub Actions)
-- **Phase 7**: npm publication ready
-- **Phase 8**: Skipped (standalone library design)
-- **Phase 10**: Production hardening (metrics, monitoring)
-
-**Final Stats**:
-- 148 tests passing (100%)
-- 87.5% phase completion (7 of 8 applicable phases)
-- Production-ready with enterprise features
-- Full TypeScript support
-- Comprehensive documentation
-
 ## [0.5.0] - 2025-10-27
 
 ### Added
 
-- **Developer Experience Improvements** (Phase 4):
-  - Comprehensive logging system with levels (DEBUG, INFO, WARN, ERROR, NONE)
-  - Input validation for buffers, formats, file paths, and options
-  - Enhanced error messages with context and suggestions
-  - Logger class with timestamps, prefixes, and child loggers
-  - Cache configuration validation
-  - Better file system error handling (ENOENT, EACCES)
-- **37 new tests**: Complete coverage for logging and validation
-- **Environment Variables**: `TRANSMUTATION_LOG_LEVEL` and `TRANSMUTATION_LOG_TIMESTAMPS`
+- **Complete Production Feature Set**:
+  - 6 document format converters (PDF, DOCX, XLSX, PPTX, HTML, TXT)
+  - Result caching with LRU strategy and SHA-256 content hashing
+  - Comprehensive logging system (DEBUG, INFO, WARN, ERROR levels)
+  - Input validation and security checks
+  - Production metrics and monitoring system
+  - Performance benchmark suite
+  
+- **Testing & Quality**:
+  - 167 tests passing (10 skipped awaiting manual Office fixtures)
+  - Real-world PDF testing with arXiv papers
+  - XLSX converter fully tested with programmatic fixtures
+  - DOCX/PPTX test suite ready (fixtures needed)
+  - GitHub Actions CI/CD workflows
+  
+- **Documentation**:
+  - 5 comprehensive usage examples
+  - Complete API reference with production features
+  - Benchmark suite documentation
+  - Security and validation guides
 
-### Changed
+### Features by Phase
 
-- `Converter` now validates all inputs by default (can be disabled)
-- Error messages now list supported formats and provide better guidance
-- File path validation prevents dangerous patterns
-- Total test count increased to 131 tests (100% passing)
+- **Phase 1**: Comprehensive testing framework
+- **Phase 2**: Performance optimization (caching, benchmarks)
+- **Phase 3**: Converter improvements (PDF with real documents)
+- **Phase 4**: Developer experience (logging, validation)
+- **Phase 5**: Documentation & examples
+- **Phase 6**: CI/CD automation
+- **Phase 7**: npm publication ready
+- **Phase 8**: Skipped (standalone library)
+- **Phase 10**: Production hardening (metrics)
 
 ### Security
 
-- Added validation against path traversal attacks
-- Added protection against system directory access
-- Buffer size limits (500MB max) to prevent memory issues
+- Path traversal attack protection
+- System directory access blocking
+- Buffer size limits (500MB max)
+- Comprehensive input validation
 
 ## [0.4.0] - 2025-10-27
 
