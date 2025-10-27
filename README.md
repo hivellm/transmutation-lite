@@ -7,7 +7,7 @@
 [![Build](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml/badge.svg)](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Version:** 1.0.0  
+**Version:** 0.5.0  
 **Status:** ✅ Production Ready - Enterprise Grade
 
 ## Overview

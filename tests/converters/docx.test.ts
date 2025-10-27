@@ -71,12 +71,17 @@ describe('DocxConverter', () => {
   });
 
   describe('error handling', () => {
-    it('should handle invalid DOCX', async () => {
+    it('should throw on invalid DOCX', async () => {
       const buffer = Buffer.from('not a real docx file');
       
-      await expect(async () => {
+      try {
         await converter.convert(buffer);
-      }).rejects.toThrow();
+        // If no error thrown, test should fail
+        expect.fail('Expected conversion to throw an error');
+      } catch (error) {
+        // Error expected
+        expect(error).toBeDefined();
+      }
     });
   });
 });

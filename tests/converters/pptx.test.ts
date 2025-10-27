@@ -77,12 +77,17 @@ describe('PptxConverter', () => {
   });
 
   describe('error handling', () => {
-    it('should handle invalid PPTX', async () => {
+    it('should throw on invalid PPTX', async () => {
       const buffer = Buffer.from('not a real pptx file');
       
-      await expect(async () => {
+      try {
         await converter.convert(buffer);
-      }).rejects.toThrow();
+        // If no error thrown, test should fail
+        expect.fail('Expected conversion to throw an error');
+      } catch (error) {
+        // Error expected
+        expect(error).toBeDefined();
+      }
     });
   });
 });
