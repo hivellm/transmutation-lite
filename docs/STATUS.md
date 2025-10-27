@@ -52,7 +52,10 @@ Transmutation Lite is a simplified TypeScript document converter designed for th
 | Validation | 22 | ✅ Passing |
 | Logger | 15 | ✅ Passing |
 | Metrics | 17 | ✅ Passing |
-| **Total** | **148** | ✅ **100%** |
+| DOCX Converter | 6 | ✅ Passing |
+| XLSX Converter | 18 | ✅ Passing |
+| PPTX Converter | 6 | ✅ Passing |
+| **Total** | **177** | ✅ **100%** |
 
 ### Real-World Testing
 

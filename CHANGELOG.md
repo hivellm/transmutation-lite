@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-10-27
+
+### Added
+
+- **Office Document Fixtures**: Programmatically generated valid DOCX and PPTX files
+  - DOCX: simple.docx, formatted.docx, empty.docx
+  - PPTX: simple.pptx, multi-slide.pptx, empty.pptx
+- **Complete Test Coverage**: All 177 tests now passing (no skips)
+  - DOCX: 6 tests fully operational
+  - PPTX: 6 tests fully operational
+  - XLSX: 18 tests all passing
+
+### Changed
+
+- Test status: 177/177 passing (was 167/177 with 10 skipped)
+- Office fixtures created via JSZip using Office Open XML format
+- Scripts for regenerating fixtures included
+
 ## [0.5.0] - 2025-10-27
 
 ### Added
