@@ -7,8 +7,8 @@
 [![Build](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml/badge.svg)](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Version:** 0.2.0  
-**Status:** ✅ Ready for Publication
+**Version:** 1.0.0  
+**Status:** ✅ Production Ready - Enterprise Grade
 
 ## Overview
 
@@ -25,7 +25,8 @@ Transmutation Lite is a lightweight, TypeScript-based document conversion librar
 
 ## Features
 
-- ✅ **PDF to Markdown** - Using `pdf-parse` for text extraction
+### Core Conversion
+- ✅ **PDF to Markdown** - Using `pdf-parse-new` for reliable text extraction
 - ✅ **DOCX to Markdown** - Using `mammoth` for Word documents
 - ✅ **XLSX to Markdown** - Using `xlsx` for Excel spreadsheets (tables)
 - ✅ **PPTX to Markdown** - Basic text extraction from PowerPoint
@@ -33,8 +34,22 @@ Transmutation Lite is a lightweight, TypeScript-based document conversion librar
 - ✅ **TXT to Markdown** - Plain text normalization
 - ✅ **CLI & Library** - Use as command-line tool or Node.js library
 - ✅ **TypeScript** - Full type safety and IntelliSense support
+
+### Performance & Reliability
+- ✅ **Result Caching** - LRU cache with SHA-256 content hashing
+- ✅ **Input Validation** - Comprehensive validation with security checks
+- ✅ **Error Handling** - Clear, actionable error messages
+- ✅ **Logging System** - Configurable logging (DEBUG, INFO, WARN, ERROR)
+- ✅ **Metrics Collection** - Production monitoring and analytics
+- ✅ **Batch Processing** - Parallel file conversion
 - ✅ **Fast & Lightweight** - No heavy dependencies or external tools
-- ✅ **Batch Processing** - Convert multiple files in parallel
+
+### Developer Experience
+- ✅ **148 Tests** - 100% passing test suite
+- ✅ **CI/CD Ready** - GitHub Actions workflows
+- ✅ **Comprehensive Examples** - 5 detailed usage examples
+- ✅ **Security** - Path traversal protection, buffer limits
+- ✅ **Documentation** - Complete API docs and guides
 
 ## Quick Start
 
@@ -57,14 +72,21 @@ npm install @hivellm/transmutation-lite
 ### Library Usage
 
 ```typescript
-import { convert, Converter } from '@hivellm/transmutation-lite';
+import { Converter, Logger, LogLevel } from '@hivellm/transmutation-lite';
 
 // Simple conversion
-const result = await convert('./document.pdf');
+const converter = new Converter();
+const result = await converter.convertFile('./document.pdf');
 console.log(result.markdown);
 
-// With options
-const converter = new Converter();
+// With caching and logging
+const converter = new Converter({
+  enableCache: true,
+  cacheSize: 100,
+  logger: new Logger({ level: LogLevel.INFO }),
+  collectMetrics: true,
+});
+
 const result = await converter.convertFile('./document.docx', {
   preserveFormatting: true,
   maxPages: 10,
@@ -73,7 +95,11 @@ const result = await converter.convertFile('./document.docx', {
 console.log('Format:', result.metadata.format);
 console.log('Pages:', result.metadata.pageCount);
 console.log('Time:', result.conversionTimeMs, 'ms');
-console.log('Markdown:', result.markdown);
+
+// Get metrics
+const metrics = converter.getMetricsSummary();
+console.log('Success Rate:', metrics.successRate);
+console.log('Cache Hit Rate:', metrics.cacheHitRate);
 ```
 
 ### CLI Usage
