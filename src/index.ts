@@ -29,6 +29,7 @@ import {
   validateOptions,
   validateCacheConfig,
 } from './validation.js';
+import { MetricsCollector } from './metrics.js';
 
 // Export types
 export {
@@ -42,6 +43,8 @@ export type {
 } from './types.js';
 export { ConversionCache } from './cache.js';
 export { Logger, LogLevel } from './logger.js';
+export { MetricsCollector } from './metrics.js';
+export type { ConversionMetrics } from './metrics.js';
 
 /**
  * Configuration options for the Converter
@@ -71,6 +74,11 @@ export interface ConverterConfig {
    * Enable input validation (default: true)
    */
   validateInput?: boolean;
+
+  /**
+   * Enable metrics collection (default: false)
+   */
+  collectMetrics?: boolean;
 }
 
 /**
@@ -81,11 +89,18 @@ export class Converter {
   private cache?: ConversionCache;
   private logger: Logger;
   private validateInput: boolean;
+  private metrics?: MetricsCollector;
 
   constructor(config?: ConverterConfig) {
     this.converters = new Map();
     this.logger = config?.logger || defaultLogger;
     this.validateInput = config?.validateInput ?? true;
+    
+    // Initialize metrics if enabled
+    if (config?.collectMetrics) {
+      this.metrics = new MetricsCollector();
+      this.logger.info('Metrics collection enabled');
+    }
 
     // Validate cache config
     if (config) {
@@ -169,6 +184,13 @@ export class Converter {
       const cached = this.cache.get(buffer, format);
       if (cached) {
         this.logger.debug(`Cache hit for ${format}`);
+        
+        // Record cache hit in metrics
+        if (this.metrics) {
+          const elapsed = Date.now() - startTime;
+          this.metrics.recordSuccess(format, buffer.length, elapsed, true);
+        }
+        
         return cached;
       }
       this.logger.debug(`Cache miss for ${format}`);
@@ -183,15 +205,28 @@ export class Converter {
       this.logger.info(`Converted ${format} in ${elapsed}ms (${(buffer.length / 1024).toFixed(2)} KB)`);
 
       // Store in cache if enabled
+      const wasFromCache = false;
       if (this.cache) {
         this.cache.set(buffer, format, result);
         this.logger.debug(`Cached ${format} result`);
+      }
+
+      // Record metrics
+      if (this.metrics) {
+        this.metrics.recordSuccess(format, buffer.length, elapsed, wasFromCache);
       }
 
       return result;
     } catch (error) {
       const elapsed = Date.now() - startTime;
       this.logger.error(`Conversion failed for ${format} after ${elapsed}ms`, error as Error);
+      
+      // Record failure metrics
+      if (this.metrics) {
+        const errorType = (error as Error).constructor.name;
+        this.metrics.recordFailure(format, errorType);
+      }
+      
       throw error;
     }
   }
@@ -269,6 +304,36 @@ export class Converter {
    */
   getCacheMemoryUsage(): number {
     return this.cache?.getMemoryUsage() || 0;
+  }
+
+  /**
+   * Get conversion metrics (if metrics collection is enabled)
+   */
+  getMetrics() {
+    return this.metrics?.getMetrics();
+  }
+
+  /**
+   * Get metrics summary (if metrics collection is enabled)
+   */
+  getMetricsSummary() {
+    return this.metrics?.getSummary();
+  }
+
+  /**
+   * Reset metrics (if metrics collection is enabled)
+   */
+  resetMetrics(): void {
+    if (this.metrics) {
+      this.metrics.reset();
+    }
+  }
+
+  /**
+   * Export metrics as JSON (if metrics collection is enabled)
+   */
+  exportMetrics(): any {
+    return this.metrics?.toJSON();
   }
 }
 
