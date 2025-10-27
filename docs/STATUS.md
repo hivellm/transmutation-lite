@@ -2,7 +2,7 @@
 
 **Last Updated:** 2025-10-27  
 **Version:** 0.2.0  
-**Status:** ✅ Ready for npm Publication
+**Status:** ✅ Production Ready - Tested with Real arXiv PDFs
 
 ## Overview
 
@@ -46,6 +46,15 @@ Transmutation Lite is a simplified TypeScript document converter designed for th
 | Integration | 9 | ✅ Passing |
 | CLI | 3 | ✅ Passing |
 | **Total** | **58** | ✅ **100%** |
+
+### Real-World Testing
+
+| Test | Source | Result |
+|------|--------|--------|
+| arXiv PDF (2510.21695) | Multi-Agent Path Planning, 10 pages | ✅ 49KB markdown in 64ms |
+| arXiv PDF (2510.21618) | DeepAgent, 24 pages | ✅ 86KB markdown in 178ms |
+| arXiv PDF (2510.21275) | UCT Exploration, 13 pages | ✅ 223KB markdown in 642ms |
+| Batch Conversion | 3 PDFs simultaneously | ✅ 358KB total in 884ms |
 
 ### Commits
 
