@@ -30,6 +30,8 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
+    "benchmark": "tsx benchmarks/benchmark-runner.ts",
+    "benchmark:compare": "tsx benchmarks/compare.ts",
     "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [

@@ -20,6 +20,7 @@ import {
   ConversionResult,
   ConversionError,
 } from './types.js';
+import { ConversionCache } from './cache.js';
 
 // Export types
 export {
@@ -31,15 +32,45 @@ export type {
   ConversionResult,
   DocumentMetadata,
 } from './types.js';
+export { ConversionCache } from './cache.js';
+
+/**
+ * Configuration options for the Converter
+ */
+export interface ConverterConfig {
+  /**
+   * Enable caching of conversion results (default: false)
+   */
+  enableCache?: boolean;
+
+  /**
+   * Maximum number of cached results (default: 100)
+   */
+  cacheSize?: number;
+
+  /**
+   * Maximum age of cached results in milliseconds (default: 1 hour)
+   */
+  cacheMaxAge?: number;
+}
 
 /**
  * Main converter class that manages all format converters
  */
 export class Converter {
   private converters: Map<DocumentFormat, IConverter>;
+  private cache?: ConversionCache;
 
-  constructor() {
+  constructor(config?: ConverterConfig) {
     this.converters = new Map();
+
+    // Initialize cache if enabled
+    if (config?.enableCache) {
+      this.cache = new ConversionCache(
+        config.cacheSize || 100,
+        config.cacheMaxAge || 3600000
+      );
+    }
 
     // Register all converters
     this.registerConverter(new PdfConverter());
@@ -93,8 +124,24 @@ export class Converter {
     format: DocumentFormat,
     options?: ConversionOptions
   ): Promise<ConversionResult> {
+    // Check cache if enabled
+    if (this.cache) {
+      const cached = this.cache.get(buffer, format);
+      if (cached) {
+        return cached;
+      }
+    }
+
+    // Convert
     const converter = this.getConverter(format);
-    return converter.convert(buffer, options);
+    const result = await converter.convert(buffer, options);
+
+    // Store in cache if enabled
+    if (this.cache) {
+      this.cache.set(buffer, format, result);
+    }
+
+    return result;
   }
 
   /**
@@ -128,6 +175,29 @@ export class Converter {
    */
   isSupported(filePath: string): boolean {
     return this.detectFormat(filePath) !== DocumentFormat.UNKNOWN;
+  }
+
+  /**
+   * Clear the conversion cache
+   */
+  clearCache(): void {
+    if (this.cache) {
+      this.cache.clear();
+    }
+  }
+
+  /**
+   * Get cache statistics (if caching is enabled)
+   */
+  getCacheStats() {
+    return this.cache?.getStats();
+  }
+
+  /**
+   * Get cache memory usage in bytes (if caching is enabled)
+   */
+  getCacheMemoryUsage(): number {
+    return this.cache?.getMemoryUsage() || 0;
   }
 }
 
