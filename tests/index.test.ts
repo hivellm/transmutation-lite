@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Converter, DocumentFormat, ConversionError } from './index.js';
+import { Converter, DocumentFormat, ConversionError } from '../src/index.js';
 
 describe('Converter', () => {
   const converter = new Converter();

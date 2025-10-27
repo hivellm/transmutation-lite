@@ -1,0 +1,10 @@
+Title: Test Document
+Author: Test Suite
+Date: 2024-01-01
+
+This is a text file with metadata-like content at the beginning.
+
+Content paragraph 1.
+
+Content paragraph 2.
+

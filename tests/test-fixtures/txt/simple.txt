@@ -1,0 +1,9 @@
+This is a simple text file for testing.
+
+It contains multiple paragraphs.
+
+
+With extra blank lines that should be normalized.
+
+The end.
+
