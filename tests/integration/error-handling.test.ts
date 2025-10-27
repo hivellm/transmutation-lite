@@ -31,12 +31,12 @@ describe('Error Handling Integration', () => {
     expect(converter.isSupported('file.xyz')).toBe(false);
   });
 
-  it('should handle empty buffer gracefully', async () => {
+  it('should reject empty buffer', async () => {
     const buffer = Buffer.from('');
-    const result = await converter.convertBuffer(buffer, 'txt');
     
-    expect(result.markdown).toBe('');
-    expect(result.metadata.fileSize).toBe(0);
+    await expect(async () => {
+      await converter.convertBuffer(buffer, 'txt');
+    }).rejects.toThrow('buffer is empty');
   });
 
   it('should handle invalid buffer for PDF', async () => {

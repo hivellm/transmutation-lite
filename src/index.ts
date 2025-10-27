@@ -21,6 +21,14 @@ import {
   ConversionError,
 } from './types.js';
 import { ConversionCache } from './cache.js';
+import { Logger, LogLevel, defaultLogger } from './logger.js';
+import {
+  validateBuffer,
+  validateFormat,
+  validateFilePath,
+  validateOptions,
+  validateCacheConfig,
+} from './validation.js';
 
 // Export types
 export {
@@ -33,6 +41,7 @@ export type {
   DocumentMetadata,
 } from './types.js';
 export { ConversionCache } from './cache.js';
+export { Logger, LogLevel } from './logger.js';
 
 /**
  * Configuration options for the Converter
@@ -52,6 +61,16 @@ export interface ConverterConfig {
    * Maximum age of cached results in milliseconds (default: 1 hour)
    */
   cacheMaxAge?: number;
+
+  /**
+   * Logger instance for debugging (optional)
+   */
+  logger?: Logger;
+
+  /**
+   * Enable input validation (default: true)
+   */
+  validateInput?: boolean;
 }
 
 /**
@@ -60,9 +79,18 @@ export interface ConverterConfig {
 export class Converter {
   private converters: Map<DocumentFormat, IConverter>;
   private cache?: ConversionCache;
+  private logger: Logger;
+  private validateInput: boolean;
 
   constructor(config?: ConverterConfig) {
     this.converters = new Map();
+    this.logger = config?.logger || defaultLogger;
+    this.validateInput = config?.validateInput ?? true;
+
+    // Validate cache config
+    if (config) {
+      validateCacheConfig(config);
+    }
 
     // Initialize cache if enabled
     if (config?.enableCache) {
@@ -70,6 +98,7 @@ export class Converter {
         config.cacheSize || 100,
         config.cacheMaxAge || 3600000
       );
+      this.logger.info(`Cache enabled: size=${config.cacheSize || 100}, maxAge=${config.cacheMaxAge || 3600000}ms`);
     }
 
     // Register all converters
@@ -124,24 +153,47 @@ export class Converter {
     format: DocumentFormat,
     options?: ConversionOptions
   ): Promise<ConversionResult> {
+    const startTime = Date.now();
+    
+    // Validate inputs
+    if (this.validateInput) {
+      validateBuffer(buffer);
+      validateFormat(format);
+      validateOptions(options);
+    }
+
+    this.logger.debug(`Converting ${format} buffer (${buffer.length} bytes)`);
+
     // Check cache if enabled
     if (this.cache) {
       const cached = this.cache.get(buffer, format);
       if (cached) {
+        this.logger.debug(`Cache hit for ${format}`);
         return cached;
       }
+      this.logger.debug(`Cache miss for ${format}`);
     }
 
-    // Convert
-    const converter = this.getConverter(format);
-    const result = await converter.convert(buffer, options);
+    try {
+      // Convert
+      const converter = this.getConverter(format);
+      const result = await converter.convert(buffer, options);
 
-    // Store in cache if enabled
-    if (this.cache) {
-      this.cache.set(buffer, format, result);
+      const elapsed = Date.now() - startTime;
+      this.logger.info(`Converted ${format} in ${elapsed}ms (${(buffer.length / 1024).toFixed(2)} KB)`);
+
+      // Store in cache if enabled
+      if (this.cache) {
+        this.cache.set(buffer, format, result);
+        this.logger.debug(`Cached ${format} result`);
+      }
+
+      return result;
+    } catch (error) {
+      const elapsed = Date.now() - startTime;
+      this.logger.error(`Conversion failed for ${format} after ${elapsed}ms`, error as Error);
+      throw error;
     }
-
-    return result;
   }
 
   /**
@@ -151,16 +203,35 @@ export class Converter {
     filePath: string,
     options?: ConversionOptions
   ): Promise<ConversionResult> {
+    // Validate file path
+    if (this.validateInput) {
+      validateFilePath(filePath);
+    }
+
+    this.logger.debug(`Converting file: ${filePath}`);
+
     const format = this.detectFormat(filePath);
 
     if (format === DocumentFormat.UNKNOWN) {
+      const ext = extname(filePath);
+      this.logger.error(`Unsupported file format: ${ext}`);
       throw new ConversionError(
-        `Unsupported file format: ${extname(filePath)}`
+        `Unsupported file format: ${ext}. Supported formats: ${this.getSupportedFormats().join(', ')}`
       );
     }
 
-    const buffer = await readFile(filePath);
-    return this.convertBuffer(buffer, format, options);
+    try {
+      const buffer = await readFile(filePath);
+      return this.convertBuffer(buffer, format, options);
+    } catch (error) {
+      if ((error as any).code === 'ENOENT') {
+        throw new ConversionError(`File not found: ${filePath}`);
+      }
+      if ((error as any).code === 'EACCES') {
+        throw new ConversionError(`Permission denied: ${filePath}`);
+      }
+      throw error;
+    }
   }
 
   /**
