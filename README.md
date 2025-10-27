@@ -3,7 +3,7 @@
 > Simplified TypeScript document converter for common formats to Markdown
 
 **Version:** 0.1.0  
-**Status:** ✅ Production Ready
+**Status:** 🚧 In Development - Not Published
 
 ## Overview
 
@@ -35,6 +35,16 @@ Transmutation Lite is a lightweight, TypeScript-based document conversion librar
 
 ### Installation
 
+> **Note**: This package is not yet published to npm. For now, use it locally within the HiveLLM monorepo.
+
+**Local usage (within monorepo):**
+```bash
+# From classify project
+npm install
+# Uses: "file:../transmutation-lite" dependency
+```
+
+**Future npm installation (when published):**
 ```bash
 npm install @hivellm/transmutation-lite
 ```
@@ -206,12 +216,12 @@ enum DocumentFormat {
 
 | Format | Extension | Library | Quality | Notes |
 |--------|-----------|---------|---------|-------|
-| PDF | `.pdf` | pdf-parse | Good | Text extraction only, no images |
-| DOCX | `.docx` | mammoth | Excellent | Full formatting support |
-| XLSX | `.xlsx`, `.xls` | xlsx | Excellent | Converts to Markdown tables |
-| PPTX | `.pptx`, `.ppt` | jszip (basic) | Fair | Basic text extraction |
-| HTML | `.html`, `.htm` | turndown | Excellent | Clean Markdown conversion |
-| TXT | `.txt`, `.md` | native | Perfect | Direct text handling |
+| PDF | `.pdf` | pdf-parse | Basic | Text extraction only, no images, limited formatting |
+| DOCX | `.docx` | mammoth | Good | Formatting support, quality depends on mammoth |
+| XLSX | `.xlsx`, `.xls` | xlsx | Good | Converts to Markdown tables |
+| PPTX | `.pptx`, `.ppt` | jszip (basic) | ⚠️ Limited | Basic text extraction only, experimental |
+| HTML | `.html`, `.htm` | turndown | Good | Clean Markdown conversion |
+| TXT | `.txt`, `.md` | native | Good | Direct text handling |
 
 ## Integration with Classify
 
@@ -386,15 +396,19 @@ try {
 
 ## Performance
 
-Typical conversion times on modern hardware:
+> **Note**: Performance estimates below are theoretical. Real-world performance may vary based on document complexity and system specifications.
 
-| Format | File Size | Pages | Time | Notes |
-|--------|-----------|-------|------|-------|
-| PDF | 2 MB | 15 | ~200ms | Text extraction only |
-| DOCX | 500 KB | 20 | ~150ms | Full formatting |
-| XLSX | 1 MB | 10 sheets | ~100ms | Table conversion |
-| PPTX | 3 MB | 30 slides | ~300ms | Basic text extraction |
-| HTML | 200 KB | - | ~50ms | Fast conversion |
+Estimated conversion times:
+
+| Format | File Size | Pages | Estimated Time | Notes |
+|--------|-----------|-------|----------------|-------|
+| PDF | 2 MB | 15 | ~200-500ms | Text extraction only, depends on pdf-parse |
+| DOCX | 500 KB | 20 | ~150-300ms | Depends on document complexity |
+| XLSX | 1 MB | 10 sheets | ~100-200ms | Table conversion |
+| PPTX | 3 MB | 30 slides | ~300-600ms | Basic text extraction via jszip |
+| HTML | 200 KB | - | ~50-100ms | Turndown conversion |
+
+**Important**: For production use requiring guaranteed performance and quality, use the full [Transmutation](https://github.com/hivellm/transmutation) Rust library.
 
 ## Limitations
 
@@ -410,14 +424,15 @@ Typical conversion times on modern hardware:
 | Feature | Transmutation Lite (TypeScript) | Transmutation (Rust) |
 |---------|--------------------------------|---------------------|
 | **Best For** | Document classification, quick previews | RAG systems, production pipelines |
-| **Precision** | ⚠️ Good (~60-70%) | ✅ Excellent (80%+) |
-| **Performance** | Fast | ✅ **98x faster** than Docling |
-| **Memory** | Low (~50MB) | ✅ Very Low (~20MB) |
+| **Precision** | ⚠️ Basic (untested, depends on libraries) | ✅ Excellent (80%+ tested) |
+| **Performance** | Moderate (Node.js) | ✅ **98x faster** than Docling (tested) |
+| **Memory** | Moderate (Node.js overhead) | ✅ Very Low (~20MB tested) |
 | **OCR Support** | ❌ No | ✅ Yes (Tesseract) |
 | **Audio/Video** | ❌ No | ✅ Yes (Whisper) |
 | **Archives** | ❌ No | ✅ Yes (ZIP, TAR, etc.) |
-| **Setup** | ✅ npm install | Requires Rust/binary |
+| **Setup** | ✅ npm install (local) | Requires Rust/binary |
 | **Integration** | ✅ Easy (Node.js) | Moderate (CLI/FFI) |
+| **Status** | 🚧 In Development | ✅ Production Ready |
 
 **Recommendation**: For production use cases requiring high-quality document conversion, we **strongly recommend** using the full [Transmutation](https://github.com/hivellm/transmutation) Rust library. Transmutation Lite is ideal for:
 - Quick document classification (like HiveLLM Classify)
@@ -492,10 +507,12 @@ MIT
 This project follows the HiveLLM ecosystem standards:
 
 1. TypeScript 5.x with strict mode
-2. Comprehensive tests (95%+ coverage)
+2. Tests with vitest (currently basic coverage)
 3. Clear documentation
 4. Semantic versioning
 5. Conventional commits
+
+**Current Status**: Initial implementation complete, needs more comprehensive testing before production use.
 
 ## Changelog
 
