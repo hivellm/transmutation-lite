@@ -1,4 +1,8 @@
-import * as pdfParse from 'pdf-parse';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+// pdf-parse-new is a CommonJS module that exports a function directly
+const pdfParse = require('pdf-parse-new');
+
 import { BaseConverter } from './base.js';
 import {
   DocumentFormat,
@@ -27,7 +31,7 @@ export class PdfConverter extends BaseConverter {
     const warnings: string[] = [];
 
     try {
-      const data = await (pdfParse as any).default(buffer);
+      const data = await pdfParse(buffer);
 
       let text = data.text;
 
