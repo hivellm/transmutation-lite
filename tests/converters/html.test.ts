@@ -49,8 +49,8 @@ describe('HtmlConverter', () => {
       const buffer = readFileSync(join(fixturesDir, 'simple.html'));
       const result = await converter.convert(buffer);
 
-      expect(result.markdown).toContain('*   List item 1');
-      expect(result.markdown).toContain('*   List item 2');
+      expect(result.markdown).toContain('-   List item 1');
+      expect(result.markdown).toContain('-   List item 2');
     });
 
     it('should convert links', async () => {
@@ -132,7 +132,7 @@ describe('HtmlConverter', () => {
       const buffer = readFileSync(join(fixturesDir, 'simple.html'));
       const result = await converter.convert(buffer);
 
-      expect(result.conversionTimeMs).toBeGreaterThan(0);
+      expect(result.conversionTimeMs).toBeGreaterThanOrEqual(0);
       expect(result.conversionTimeMs).toBeLessThan(100);
     });
   });

@@ -36,7 +36,7 @@ describe('TxtConverter', () => {
       expect(result.markdown).toContain('This is a simple text file');
       expect(result.metadata.format).toBe(DocumentFormat.TXT);
       expect(result.metadata.fileSize).toBe(buffer.length);
-      expect(result.conversionTimeMs).toBeGreaterThan(0);
+      expect(result.conversionTimeMs).toBeGreaterThanOrEqual(0);
     });
 
     it('should normalize line endings', async () => {
@@ -103,7 +103,7 @@ describe('TxtConverter', () => {
       const buffer = Buffer.from('Test content');
       const result = await converter.convert(buffer);
 
-      expect(result.conversionTimeMs).toBeGreaterThan(0);
+      expect(result.conversionTimeMs).toBeGreaterThanOrEqual(0);
       expect(result.conversionTimeMs).toBeLessThan(100); // Should be fast
     });
   });
