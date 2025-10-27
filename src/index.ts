@@ -21,7 +21,7 @@ import {
   ConversionError,
 } from './types.js';
 import { ConversionCache } from './cache.js';
-import { Logger, LogLevel, defaultLogger } from './logger.js';
+import { Logger, defaultLogger } from './logger.js';
 import {
   validateBuffer,
   validateFormat,
