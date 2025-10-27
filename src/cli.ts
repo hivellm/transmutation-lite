@@ -10,14 +10,20 @@ const program = new Command();
 
 program
   .name('transmutation-lite')
-  .description('Simplified document converter for PDF, DOCX, XLSX, PPTX to Markdown')
+  .description(
+    'Simplified document converter for PDF, DOCX, XLSX, PPTX to Markdown'
+  )
   .version('0.1.0');
 
 program
   .command('convert <file>')
   .description('Convert a single file to Markdown')
   .option('-o, --output <path>', 'Output file path (default: <filename>.md)')
-  .option('-m, --max-pages <number>', 'Maximum pages/sheets to process', parseInt)
+  .option(
+    '-m, --max-pages <number>',
+    'Maximum pages/sheets to process',
+    parseInt
+  )
   .option('--no-preserve-formatting', 'Disable formatting preservation')
   .action(async (file: string, options) => {
     try {
@@ -38,9 +44,7 @@ program
       const result = await converter.convertFile(file, conversionOptions);
 
       // Determine output path
-      const outputPath =
-        options.output ||
-        file.replace(/\.[^.]+$/, '.md');
+      const outputPath = options.output || file.replace(/\.[^.]+$/, '.md');
 
       // Ensure output directory exists
       await mkdir(dirname(outputPath), { recursive: true });
@@ -69,9 +73,16 @@ program
 program
   .command('batch <directory>')
   .description('Convert all supported files in a directory')
-  .option('-o, --output <path>', 'Output directory (default: <directory>/output)')
+  .option(
+    '-o, --output <path>',
+    'Output directory (default: <directory>/output)'
+  )
   .option('-r, --recursive', 'Process subdirectories recursively')
-  .option('-m, --max-pages <number>', 'Maximum pages/sheets to process', parseInt)
+  .option(
+    '-m, --max-pages <number>',
+    'Maximum pages/sheets to process',
+    parseInt
+  )
   .option('--parallel <number>', 'Number of parallel conversions', parseInt, 4)
   .option('--no-preserve-formatting', 'Disable formatting preservation')
   .action(async (directory: string, options) => {
@@ -79,7 +90,9 @@ program
       const converter = new Converter();
       const files = await findFiles(directory, options.recursive);
 
-      const supportedFiles = files.filter((file) => converter.isSupported(file));
+      const supportedFiles = files.filter((file) =>
+        converter.isSupported(file)
+      );
 
       if (supportedFiles.length === 0) {
         console.log('❌ No supported files found');
@@ -113,7 +126,9 @@ program
                 conversionOptions
               );
 
-              const relativePath = file.replace(directory, '').replace(/^[/\\]/, '');
+              const relativePath = file
+                .replace(directory, '')
+                .replace(/^[/\\]/, '');
               const outputPath = join(
                 outputDir,
                 relativePath.replace(/\.[^.]+$/, '.md')
@@ -189,4 +204,3 @@ async function findFiles(
 }
 
 program.parse();
-

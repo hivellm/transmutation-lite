@@ -39,7 +39,12 @@ export class MetricsCollector {
   /**
    * Record a successful conversion
    */
-  recordSuccess(format: string, bytes: number, timeMs: number, fromCache: boolean): void {
+  recordSuccess(
+    format: string,
+    bytes: number,
+    timeMs: number,
+    fromCache: boolean
+  ): void {
     this.metrics.totalConversions++;
     this.metrics.successfulConversions++;
     this.metrics.totalBytesProcessed += bytes;
@@ -87,22 +92,25 @@ export class MetricsCollector {
     avgThroughput: number;
   } {
     const uptime = Date.now() - this.startTime;
-    const successRate = this.metrics.totalConversions > 0
-      ? (this.metrics.successfulConversions / this.metrics.totalConversions) * 100
-      : 0;
-    
+    const successRate =
+      this.metrics.totalConversions > 0
+        ? (this.metrics.successfulConversions / this.metrics.totalConversions) *
+          100
+        : 0;
+
     const totalCacheOps = this.metrics.cacheHits + this.metrics.cacheMisses;
-    const cacheHitRate = totalCacheOps > 0
-      ? (this.metrics.cacheHits / totalCacheOps) * 100
-      : 0;
+    const cacheHitRate =
+      totalCacheOps > 0 ? (this.metrics.cacheHits / totalCacheOps) * 100 : 0;
 
-    const avgConversionTime = this.metrics.successfulConversions > 0
-      ? this.metrics.totalTimeMs / this.metrics.successfulConversions
-      : 0;
+    const avgConversionTime =
+      this.metrics.successfulConversions > 0
+        ? this.metrics.totalTimeMs / this.metrics.successfulConversions
+        : 0;
 
-    const avgThroughput = this.metrics.totalTimeMs > 0
-      ? (this.metrics.totalBytesProcessed / this.metrics.totalTimeMs) * 1000 // bytes per second
-      : 0;
+    const avgThroughput =
+      this.metrics.totalTimeMs > 0
+        ? (this.metrics.totalBytesProcessed / this.metrics.totalTimeMs) * 1000 // bytes per second
+        : 0;
 
     return {
       uptime,
@@ -142,7 +150,9 @@ export class MetricsCollector {
       metrics: {
         ...this.metrics,
         errorsByType: Object.fromEntries(this.metrics.errorsByType),
-        conversionsByFormat: Object.fromEntries(this.metrics.conversionsByFormat),
+        conversionsByFormat: Object.fromEntries(
+          this.metrics.conversionsByFormat
+        ),
       },
       summary: {
         successRate: summary.successRate.toFixed(2) + '%',
@@ -153,4 +163,3 @@ export class MetricsCollector {
     };
   }
 }
-

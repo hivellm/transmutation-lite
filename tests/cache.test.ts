@@ -72,7 +72,9 @@ describe('ConversionCache', () => {
 
   describe('LRU behavior', () => {
     it('should evict oldest entry when full', () => {
-      const buffers = Array.from({ length: 6 }, (_, i) => Buffer.from(`content${i}`));
+      const buffers = Array.from({ length: 6 }, (_, i) =>
+        Buffer.from(`content${i}`)
+      );
       const results = buffers.map((_, i) => createMockResult(`# Result ${i}`));
 
       // Fill cache beyond capacity
@@ -87,7 +89,9 @@ describe('ConversionCache', () => {
     });
 
     it('should move accessed entries to end', () => {
-      const buffers = Array.from({ length: 5 }, (_, i) => Buffer.from(`content${i}`));
+      const buffers = Array.from({ length: 5 }, (_, i) =>
+        Buffer.from(`content${i}`)
+      );
       const results = buffers.map((_, i) => createMockResult(`# Result ${i}`));
 
       // Fill cache to capacity
@@ -197,4 +201,3 @@ describe('ConversionCache', () => {
     });
   });
 });
-

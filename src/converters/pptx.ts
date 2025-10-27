@@ -37,15 +37,11 @@ export class PptxConverter extends BaseConverter {
       // In production, you'd want a proper PPTX parser
       const text = await this.extractTextFromPptx(buffer);
 
-      const metadata = this.createMetadata(
-        DocumentFormat.PPTX,
-        buffer.length,
-        {
-          extra: {
-            note: 'Basic text extraction only',
-          },
-        }
-      );
+      const metadata = this.createMetadata(DocumentFormat.PPTX, buffer.length, {
+        extra: {
+          note: 'Basic text extraction only',
+        },
+      });
 
       return this.createResult(text, metadata, startTime, warnings);
     } catch (error) {
@@ -97,4 +93,3 @@ export class PptxConverter extends BaseConverter {
     return markdown.trim();
   }
 }
-

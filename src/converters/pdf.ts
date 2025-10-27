@@ -87,4 +87,3 @@ export class PdfConverter extends BaseConverter {
     return text.trim();
   }
 }
-

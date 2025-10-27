@@ -66,17 +66,13 @@ export class XlsxConverter extends BaseConverter {
         }
       }
 
-      const metadata = this.createMetadata(
-        DocumentFormat.XLSX,
-        buffer.length,
-        {
-          pageCount: totalSheets,
-          extra: {
-            sheetNames: workbook.SheetNames,
-            processedSheets: sheetsToProcess,
-          },
-        }
-      );
+      const metadata = this.createMetadata(DocumentFormat.XLSX, buffer.length, {
+        pageCount: totalSheets,
+        extra: {
+          sheetNames: workbook.SheetNames,
+          processedSheets: sheetsToProcess,
+        },
+      });
 
       return this.createResult(markdown.trim(), metadata, startTime, warnings);
     } catch (error) {
@@ -154,4 +150,3 @@ export class XlsxConverter extends BaseConverter {
     return cells;
   }
 }
-

@@ -21,7 +21,7 @@ describe('Logger', () => {
   describe('log levels', () => {
     it('should log at DEBUG level', () => {
       const logger = new Logger({ level: LogLevel.DEBUG });
-      
+
       logger.debug('debug message');
       logger.info('info message');
       logger.warn('warn message');
@@ -35,7 +35,7 @@ describe('Logger', () => {
 
     it('should log at INFO level', () => {
       const logger = new Logger({ level: LogLevel.INFO });
-      
+
       logger.debug('debug message');
       logger.info('info message');
       logger.warn('warn message');
@@ -49,7 +49,7 @@ describe('Logger', () => {
 
     it('should log at WARN level', () => {
       const logger = new Logger({ level: LogLevel.WARN });
-      
+
       logger.debug('debug message');
       logger.info('info message');
       logger.warn('warn message');
@@ -63,7 +63,7 @@ describe('Logger', () => {
 
     it('should log at ERROR level', () => {
       const logger = new Logger({ level: LogLevel.ERROR });
-      
+
       logger.debug('debug message');
       logger.info('info message');
       logger.warn('warn message');
@@ -77,7 +77,7 @@ describe('Logger', () => {
 
     it('should not log at NONE level', () => {
       const logger = new Logger({ level: LogLevel.NONE });
-      
+
       logger.debug('debug message');
       logger.info('info message');
       logger.warn('warn message');
@@ -101,9 +101,9 @@ describe('Logger', () => {
     });
 
     it('should include custom prefix', () => {
-      const logger = new Logger({ 
+      const logger = new Logger({
         level: LogLevel.INFO,
-        prefix: '[CustomPrefix]'
+        prefix: '[CustomPrefix]',
       });
       logger.info('test message');
 
@@ -113,9 +113,9 @@ describe('Logger', () => {
     });
 
     it('should include timestamps when enabled', () => {
-      const logger = new Logger({ 
+      const logger = new Logger({
         level: LogLevel.INFO,
-        timestamps: true
+        timestamps: true,
       });
       logger.info('test message');
 
@@ -137,9 +137,9 @@ describe('Logger', () => {
   describe('level management', () => {
     it('should get and set log level', () => {
       const logger = new Logger({ level: LogLevel.WARN });
-      
+
       expect(logger.getLevel()).toBe(LogLevel.WARN);
-      
+
       logger.setLevel(LogLevel.DEBUG);
       expect(logger.getLevel()).toBe(LogLevel.DEBUG);
     });
@@ -147,12 +147,12 @@ describe('Logger', () => {
 
   describe('child logger', () => {
     it('should create child with combined prefix', () => {
-      const parent = new Logger({ 
+      const parent = new Logger({
         level: LogLevel.INFO,
-        prefix: '[Parent]'
+        prefix: '[Parent]',
       });
       const child = parent.child('Child');
-      
+
       child.info('test message');
 
       expect(consoleInfoSpy).toHaveBeenCalled();
@@ -163,7 +163,7 @@ describe('Logger', () => {
     it('should inherit log level from parent', () => {
       const parent = new Logger({ level: LogLevel.ERROR });
       const child = parent.child('Child');
-      
+
       child.info('should not log');
       child.error('should log');
 
@@ -177,27 +177,19 @@ describe('Logger', () => {
       const logger = new Logger({ level: LogLevel.INFO });
       const obj = { key: 'value' };
       const arr = [1, 2, 3];
-      
+
       logger.info('message', obj, arr);
 
-      expect(consoleInfoSpy).toHaveBeenCalledWith(
-        expect.anything(),
-        obj,
-        arr
-      );
+      expect(consoleInfoSpy).toHaveBeenCalledWith(expect.anything(), obj, arr);
     });
 
     it('should include error object in error logs', () => {
       const logger = new Logger({ level: LogLevel.ERROR });
       const error = new Error('test error');
-      
+
       logger.error('something failed', error);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.anything(),
-        error
-      );
+      expect(consoleErrorSpy).toHaveBeenCalledWith(expect.anything(), error);
     });
   });
 });
-

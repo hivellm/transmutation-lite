@@ -33,7 +33,7 @@ describe('Error Handling Integration', () => {
 
   it('should reject empty buffer', async () => {
     const buffer = Buffer.from('');
-    
+
     await expect(async () => {
       await converter.convertBuffer(buffer, 'txt');
     }).rejects.toThrow('buffer is empty');
@@ -41,10 +41,7 @@ describe('Error Handling Integration', () => {
 
   it('should handle invalid buffer for PDF', async () => {
     const buffer = Buffer.from('not a real pdf');
-    
-    await expect(
-      converter.convertBuffer(buffer, 'pdf')
-    ).rejects.toThrow();
+
+    await expect(converter.convertBuffer(buffer, 'pdf')).rejects.toThrow();
   });
 });
-

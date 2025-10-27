@@ -16,7 +16,9 @@ export class TxtConverter extends BaseConverter {
 
   canHandle(extension: string): boolean {
     const ext = extension.toLowerCase();
-    return ext === 'txt' || ext === 'text' || ext === 'md' || ext === 'markdown';
+    return (
+      ext === 'txt' || ext === 'text' || ext === 'md' || ext === 'markdown'
+    );
   }
 
   async convert(
@@ -59,4 +61,3 @@ export class TxtConverter extends BaseConverter {
     return text.trim();
   }
 }
-

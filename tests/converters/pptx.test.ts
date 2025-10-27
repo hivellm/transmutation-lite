@@ -79,7 +79,7 @@ describe('PptxConverter', () => {
   describe('error handling', () => {
     it('should throw on invalid PPTX', async () => {
       const buffer = Buffer.from('not a real pptx file');
-      
+
       try {
         await converter.convert(buffer);
         // If no error thrown, test should fail
@@ -91,4 +91,3 @@ describe('PptxConverter', () => {
     });
   });
 });
-

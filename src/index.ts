@@ -32,10 +32,7 @@ import {
 import { MetricsCollector } from './metrics.js';
 
 // Export types
-export {
-  DocumentFormat,
-  ConversionError,
-} from './types.js';
+export { DocumentFormat, ConversionError } from './types.js';
 export type {
   ConversionOptions,
   ConversionResult,
@@ -95,7 +92,7 @@ export class Converter {
     this.converters = new Map();
     this.logger = config?.logger || defaultLogger;
     this.validateInput = config?.validateInput ?? true;
-    
+
     // Initialize metrics if enabled
     if (config?.collectMetrics) {
       this.metrics = new MetricsCollector();
@@ -113,7 +110,9 @@ export class Converter {
         config.cacheSize || 100,
         config.cacheMaxAge || 3600000
       );
-      this.logger.info(`Cache enabled: size=${config.cacheSize || 100}, maxAge=${config.cacheMaxAge || 3600000}ms`);
+      this.logger.info(
+        `Cache enabled: size=${config.cacheSize || 100}, maxAge=${config.cacheMaxAge || 3600000}ms`
+      );
     }
 
     // Register all converters
@@ -169,7 +168,7 @@ export class Converter {
     options?: ConversionOptions
   ): Promise<ConversionResult> {
     const startTime = Date.now();
-    
+
     // Validate inputs
     if (this.validateInput) {
       validateBuffer(buffer);
@@ -184,13 +183,13 @@ export class Converter {
       const cached = this.cache.get(buffer, format);
       if (cached) {
         this.logger.debug(`Cache hit for ${format}`);
-        
+
         // Record cache hit in metrics
         if (this.metrics) {
           const elapsed = Date.now() - startTime;
           this.metrics.recordSuccess(format, buffer.length, elapsed, true);
         }
-        
+
         return cached;
       }
       this.logger.debug(`Cache miss for ${format}`);
@@ -202,7 +201,9 @@ export class Converter {
       const result = await converter.convert(buffer, options);
 
       const elapsed = Date.now() - startTime;
-      this.logger.info(`Converted ${format} in ${elapsed}ms (${(buffer.length / 1024).toFixed(2)} KB)`);
+      this.logger.info(
+        `Converted ${format} in ${elapsed}ms (${(buffer.length / 1024).toFixed(2)} KB)`
+      );
 
       // Store in cache if enabled
       const wasFromCache = false;
@@ -213,20 +214,28 @@ export class Converter {
 
       // Record metrics
       if (this.metrics) {
-        this.metrics.recordSuccess(format, buffer.length, elapsed, wasFromCache);
+        this.metrics.recordSuccess(
+          format,
+          buffer.length,
+          elapsed,
+          wasFromCache
+        );
       }
 
       return result;
     } catch (error) {
       const elapsed = Date.now() - startTime;
-      this.logger.error(`Conversion failed for ${format} after ${elapsed}ms`, error as Error);
-      
+      this.logger.error(
+        `Conversion failed for ${format} after ${elapsed}ms`,
+        error as Error
+      );
+
       // Record failure metrics
       if (this.metrics) {
         const errorType = (error as Error).constructor.name;
         this.metrics.recordFailure(format, errorType);
       }
-      
+
       throw error;
     }
   }
@@ -359,4 +368,3 @@ export async function convertBuffer(
   const converter = new Converter();
   return converter.convertBuffer(buffer, format, options);
 }
-

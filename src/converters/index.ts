@@ -5,4 +5,3 @@ export { XlsxConverter } from './xlsx.js';
 export { PptxConverter } from './pptx.js';
 export { TxtConverter } from './txt.js';
 export { HtmlConverter } from './html.js';
-

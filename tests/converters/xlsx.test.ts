@@ -83,7 +83,7 @@ describe('XlsxConverter', () => {
   describe('error handling', () => {
     it('should throw on invalid XLSX', async () => {
       const buffer = Buffer.from('not a real xlsx file');
-      
+
       try {
         await converter.convert(buffer);
         // If no error thrown, test should fail
@@ -95,4 +95,3 @@ describe('XlsxConverter', () => {
     });
   });
 });
-

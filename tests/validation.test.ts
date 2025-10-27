@@ -43,7 +43,9 @@ describe('Validation', () => {
     });
 
     it('should reject unknown format', () => {
-      expect(() => validateFormat(DocumentFormat.UNKNOWN)).toThrow('unknown format');
+      expect(() => validateFormat(DocumentFormat.UNKNOWN)).toThrow(
+        'unknown format'
+      );
     });
 
     it('should list supported formats in error', () => {
@@ -74,10 +76,18 @@ describe('Validation', () => {
     });
 
     it('should reject dangerous paths', () => {
-      expect(() => validateFilePath('../../../etc/passwd')).toThrow('dangerous pattern');
-      expect(() => validateFilePath('/etc/shadow')).toThrow('dangerous pattern');
-      expect(() => validateFilePath('/sys/kernel')).toThrow('dangerous pattern');
-      expect(() => validateFilePath('/proc/meminfo')).toThrow('dangerous pattern');
+      expect(() => validateFilePath('../../../etc/passwd')).toThrow(
+        'dangerous pattern'
+      );
+      expect(() => validateFilePath('/etc/shadow')).toThrow(
+        'dangerous pattern'
+      );
+      expect(() => validateFilePath('/sys/kernel')).toThrow(
+        'dangerous pattern'
+      );
+      expect(() => validateFilePath('/proc/meminfo')).toThrow(
+        'dangerous pattern'
+      );
     });
   });
 
@@ -99,15 +109,27 @@ describe('Validation', () => {
     });
 
     it('should validate maxPages', () => {
-      expect(() => validateOptions({ maxPages: 'ten' as any })).toThrow('expected number');
-      expect(() => validateOptions({ maxPages: 0 })).toThrow('must be at least 1');
-      expect(() => validateOptions({ maxPages: -5 })).toThrow('must be at least 1');
-      expect(() => validateOptions({ maxPages: 3.5 })).toThrow('must be an integer');
+      expect(() => validateOptions({ maxPages: 'ten' as any })).toThrow(
+        'expected number'
+      );
+      expect(() => validateOptions({ maxPages: 0 })).toThrow(
+        'must be at least 1'
+      );
+      expect(() => validateOptions({ maxPages: -5 })).toThrow(
+        'must be at least 1'
+      );
+      expect(() => validateOptions({ maxPages: 3.5 })).toThrow(
+        'must be an integer'
+      );
     });
 
     it('should validate preserveFormatting', () => {
-      expect(() => validateOptions({ preserveFormatting: 'yes' as any })).toThrow('expected boolean');
-      expect(() => validateOptions({ preserveFormatting: 1 as any })).toThrow('expected boolean');
+      expect(() =>
+        validateOptions({ preserveFormatting: 'yes' as any })
+      ).toThrow('expected boolean');
+      expect(() => validateOptions({ preserveFormatting: 1 as any })).toThrow(
+        'expected boolean'
+      );
     });
   });
 
@@ -124,24 +146,39 @@ describe('Validation', () => {
     });
 
     it('should reject non-object config', () => {
-      expect(() => validateCacheConfig('string' as any)).toThrow('expected object');
+      expect(() => validateCacheConfig('string' as any)).toThrow(
+        'expected object'
+      );
     });
 
     it('should validate cacheSize', () => {
-      expect(() => validateCacheConfig({ cacheSize: 'fifty' as any })).toThrow('expected number');
-      expect(() => validateCacheConfig({ cacheSize: 0 })).toThrow('must be at least 1');
-      expect(() => validateCacheConfig({ cacheSize: 20000 })).toThrow('maximum is 10000');
+      expect(() => validateCacheConfig({ cacheSize: 'fifty' as any })).toThrow(
+        'expected number'
+      );
+      expect(() => validateCacheConfig({ cacheSize: 0 })).toThrow(
+        'must be at least 1'
+      );
+      expect(() => validateCacheConfig({ cacheSize: 20000 })).toThrow(
+        'maximum is 10000'
+      );
     });
 
     it('should validate cacheMaxAge', () => {
-      expect(() => validateCacheConfig({ cacheMaxAge: 'long' as any })).toThrow('expected number');
-      expect(() => validateCacheConfig({ cacheMaxAge: -100 })).toThrow('must be non-negative');
+      expect(() => validateCacheConfig({ cacheMaxAge: 'long' as any })).toThrow(
+        'expected number'
+      );
+      expect(() => validateCacheConfig({ cacheMaxAge: -100 })).toThrow(
+        'must be non-negative'
+      );
     });
 
     it('should validate enableCache', () => {
-      expect(() => validateCacheConfig({ enableCache: 'yes' as any })).toThrow('expected boolean');
-      expect(() => validateCacheConfig({ enableCache: 1 as any })).toThrow('expected boolean');
+      expect(() => validateCacheConfig({ enableCache: 'yes' as any })).toThrow(
+        'expected boolean'
+      );
+      expect(() => validateCacheConfig({ enableCache: 1 as any })).toThrow(
+        'expected boolean'
+      );
     });
   });
 });
-

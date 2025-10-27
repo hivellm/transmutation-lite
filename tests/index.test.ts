@@ -67,10 +67,7 @@ describe('Converter', () => {
   describe('convertBuffer', () => {
     it('should convert plain text buffer', async () => {
       const buffer = Buffer.from('Hello, World!');
-      const result = await converter.convertBuffer(
-        buffer,
-        DocumentFormat.TXT
-      );
+      const result = await converter.convertBuffer(buffer, DocumentFormat.TXT);
 
       expect(result.markdown).toBe('Hello, World!');
       expect(result.metadata.format).toBe(DocumentFormat.TXT);
@@ -115,4 +112,3 @@ describe('ConversionError', () => {
     expect(error.cause).toBe(cause);
   });
 });
-

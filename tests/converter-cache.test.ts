@@ -9,7 +9,7 @@ describe('Converter with Cache', () => {
       const buffer = Buffer.from('# Test content');
 
       await converter.convertBuffer(buffer, DocumentFormat.TXT);
-      
+
       const stats = converter.getCacheStats();
       expect(stats).toBeUndefined();
     });
@@ -20,12 +20,12 @@ describe('Converter with Cache', () => {
 
       // First conversion
       const result1 = await converter.convertBuffer(buffer, DocumentFormat.TXT);
-      
+
       // Second conversion (should be cached)
       const result2 = await converter.convertBuffer(buffer, DocumentFormat.TXT);
 
       expect(result1).toEqual(result2);
-      
+
       const stats = converter.getCacheStats();
       expect(stats).toBeDefined();
       expect(stats!.size).toBe(1);
@@ -33,9 +33,9 @@ describe('Converter with Cache', () => {
     });
 
     it('should respect cache size limit', async () => {
-      const converter = new Converter({ 
-        enableCache: true, 
-        cacheSize: 2 
+      const converter = new Converter({
+        enableCache: true,
+        cacheSize: 2,
       });
 
       const buffers = [
@@ -57,7 +57,10 @@ describe('Converter with Cache', () => {
       const buffer = Buffer.from('# Test');
 
       await converter.convertBuffer(buffer, DocumentFormat.TXT);
-      await converter.convertBuffer(Buffer.from('<html><body>Test</body></html>'), DocumentFormat.HTML);
+      await converter.convertBuffer(
+        Buffer.from('<html><body>Test</body></html>'),
+        DocumentFormat.HTML
+      );
 
       const stats = converter.getCacheStats();
       expect(stats!.size).toBe(2);
@@ -121,9 +124,9 @@ describe('Converter with Cache', () => {
 
   describe('cache expiration', () => {
     it('should respect cache max age', async () => {
-      const converter = new Converter({ 
+      const converter = new Converter({
         enableCache: true,
-        cacheMaxAge: 100 // 100ms
+        cacheMaxAge: 100, // 100ms
       });
       const buffer = Buffer.from('# Test');
 
@@ -131,15 +134,14 @@ describe('Converter with Cache', () => {
       expect(converter.getCacheStats()!.size).toBe(1);
 
       // Wait for expiration
-      await new Promise(resolve => setTimeout(resolve, 150));
+      await new Promise((resolve) => setTimeout(resolve, 150));
 
       // This should trigger a new conversion, not a cache hit
       await converter.convertBuffer(buffer, DocumentFormat.TXT);
-      
+
       const stats = converter.getCacheStats();
       // Size should still be 1 (old entry replaced)
       expect(stats!.size).toBe(1);
     });
   });
 });
-

@@ -81,4 +81,3 @@ export abstract class BaseConverter implements IConverter {
     };
   }
 }
-

@@ -42,7 +42,7 @@ describe('Batch Conversion Integration', () => {
 
   it('should handle mixed format conversion', async () => {
     const converter = new Converter();
-    
+
     const txtResult = await converter.convertFile(join(testDir, 'file1.txt'));
     const htmlResult = await converter.convertFile(join(testDir, 'file3.html'));
 
@@ -54,15 +54,14 @@ describe('Batch Conversion Integration', () => {
   it('should track total conversion time', async () => {
     const converter = new Converter();
     const startTime = Date.now();
-    
+
     await converter.convertFile(join(testDir, 'file1.txt'));
     await converter.convertFile(join(testDir, 'file2.txt'));
     await converter.convertFile(join(testDir, 'file3.html'));
-    
+
     const totalTime = Date.now() - startTime;
-    
+
     expect(totalTime).toBeGreaterThan(0);
     expect(totalTime).toBeLessThan(1000); // Should be fast
   });
 });
-

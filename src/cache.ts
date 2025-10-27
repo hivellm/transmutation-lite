@@ -12,7 +12,7 @@ interface CacheEntry {
 
 /**
  * LRU Cache for conversion results
- * 
+ *
  * Caches conversion results to avoid re-processing identical documents.
  * Uses content hash as key to ensure cache validity.
  */
@@ -23,7 +23,7 @@ export class ConversionCache {
 
   /**
    * Create a new conversion cache
-   * 
+   *
    * @param maxSize Maximum number of entries (default: 100)
    * @param maxAge Maximum age in milliseconds (default: 1 hour)
    */
@@ -150,4 +150,3 @@ export class ConversionCache {
     return total;
   }
 }
-

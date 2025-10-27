@@ -111,7 +111,8 @@ describe('HtmlConverter', () => {
     });
 
     it('should remove script tags', async () => {
-      const html = '<html><body><script>alert("test")</script><p>Content</p></body></html>';
+      const html =
+        '<html><body><script>alert("test")</script><p>Content</p></body></html>';
       const buffer = Buffer.from(html);
       const result = await converter.convert(buffer);
 
@@ -120,7 +121,8 @@ describe('HtmlConverter', () => {
     });
 
     it('should remove style tags', async () => {
-      const html = '<html><head><style>body { color: red; }</style></head><body><p>Content</p></body></html>';
+      const html =
+        '<html><head><style>body { color: red; }</style></head><body><p>Content</p></body></html>';
       const buffer = Buffer.from(html);
       const result = await converter.convert(buffer);
 
@@ -137,4 +139,3 @@ describe('HtmlConverter', () => {
     });
   });
 });
-

@@ -39,7 +39,7 @@ export class HtmlConverter extends BaseConverter {
 
     try {
       const html = buffer.toString('utf-8');
-      
+
       // Extract body content if present (for better compatibility with happy-dom)
       const bodyContent = this.extractBodyContent(html);
       let markdown = this.turndown.turndown(bodyContent);
@@ -83,17 +83,22 @@ export class HtmlConverter extends BaseConverter {
 
   private extractBodyContent(html: string): string {
     // Remove script and style tags first
-    let content = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-    content = content.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-    
+    let content = html.replace(
+      /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+      ''
+    );
+    content = content.replace(
+      /<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi,
+      ''
+    );
+
     // Try to extract content between <body> tags
     const bodyMatch = content.match(/<body[^>]*>([\s\S]*)<\/body>/i);
     if (bodyMatch) {
       return bodyMatch[1];
     }
-    
+
     // If no body tags, return as-is
     return content;
   }
 }
-

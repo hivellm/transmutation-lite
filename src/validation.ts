@@ -32,10 +32,10 @@ export function validateBuffer(buffer: Buffer): void {
  */
 export function validateFormat(format: string): DocumentFormat {
   const validFormats = Object.values(DocumentFormat);
-  
+
   if (!validFormats.includes(format as DocumentFormat)) {
     throw new ConversionError(
-      `Invalid format: "${format}". Supported formats: ${validFormats.filter(f => f !== DocumentFormat.UNKNOWN).join(', ')}`
+      `Invalid format: "${format}". Supported formats: ${validFormats.filter((f) => f !== DocumentFormat.UNKNOWN).join(', ')}`
     );
   }
 
@@ -64,8 +64,8 @@ export function validateFilePath(filePath: string): void {
 
   // Check for potentially dangerous paths
   const dangerousPatterns = [
-    /\.\./,  // Parent directory traversal
-    /^\/etc\//,  // System directories
+    /\.\./, // Parent directory traversal
+    /^\/etc\//, // System directories
     /^\/sys\//,
     /^\/proc\//,
   ];
@@ -97,18 +97,15 @@ export function validateOptions(options: any): void {
   if ('maxPages' in options) {
     if (typeof options.maxPages !== 'number') {
       throw new ConversionError(
-        'Invalid option maxPages: expected number, got ' + typeof options.maxPages
+        'Invalid option maxPages: expected number, got ' +
+          typeof options.maxPages
       );
     }
     if (options.maxPages < 1) {
-      throw new ConversionError(
-        'Invalid option maxPages: must be at least 1'
-      );
+      throw new ConversionError('Invalid option maxPages: must be at least 1');
     }
     if (!Number.isInteger(options.maxPages)) {
-      throw new ConversionError(
-        'Invalid option maxPages: must be an integer'
-      );
+      throw new ConversionError('Invalid option maxPages: must be an integer');
     }
   }
 
@@ -116,7 +113,8 @@ export function validateOptions(options: any): void {
   if ('preserveFormatting' in options) {
     if (typeof options.preserveFormatting !== 'boolean') {
       throw new ConversionError(
-        'Invalid option preserveFormatting: expected boolean, got ' + typeof options.preserveFormatting
+        'Invalid option preserveFormatting: expected boolean, got ' +
+          typeof options.preserveFormatting
       );
     }
   }
@@ -167,9 +165,9 @@ export function validateCacheConfig(config: any): void {
   if ('enableCache' in config) {
     if (typeof config.enableCache !== 'boolean') {
       throw new ConversionError(
-        'Invalid enableCache: expected boolean, got ' + typeof config.enableCache
+        'Invalid enableCache: expected boolean, got ' +
+          typeof config.enableCache
       );
     }
   }
 }
-

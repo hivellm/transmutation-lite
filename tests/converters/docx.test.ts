@@ -73,7 +73,7 @@ describe('DocxConverter', () => {
   describe('error handling', () => {
     it('should throw on invalid DOCX', async () => {
       const buffer = Buffer.from('not a real docx file');
-      
+
       try {
         await converter.convert(buffer);
         // If no error thrown, test should fail
@@ -85,4 +85,3 @@ describe('DocxConverter', () => {
     });
   });
 });
-

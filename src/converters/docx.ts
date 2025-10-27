@@ -55,15 +55,11 @@ export class DocxConverter extends BaseConverter {
         markdown = this.cleanupMarkdown(markdown);
       }
 
-      const metadata = this.createMetadata(
-        DocumentFormat.DOCX,
-        buffer.length,
-        {
-          extra: {
-            warnings: result.messages,
-          },
-        }
-      );
+      const metadata = this.createMetadata(DocumentFormat.DOCX, buffer.length, {
+        extra: {
+          warnings: result.messages,
+        },
+      });
 
       return this.createResult(markdown, metadata, startTime, warnings);
     } catch (error) {
@@ -85,4 +81,3 @@ export class DocxConverter extends BaseConverter {
     return markdown;
   }
 }
-

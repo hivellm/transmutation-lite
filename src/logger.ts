@@ -49,13 +49,13 @@ export class Logger {
    */
   private format(level: string, message: string): string {
     const parts: string[] = [];
-    
+
     if (this.timestamps) {
       parts.push(new Date().toISOString());
     }
-    
+
     parts.push(this.prefix, `[${level}]`, message);
-    
+
     return parts.join(' ');
   }
 
@@ -111,9 +111,8 @@ export class Logger {
  * Default logger instance
  */
 export const defaultLogger = new Logger({
-  level: process.env.TRANSMUTATION_LOG_LEVEL 
-    ? parseInt(process.env.TRANSMUTATION_LOG_LEVEL, 10) 
+  level: process.env.TRANSMUTATION_LOG_LEVEL
+    ? parseInt(process.env.TRANSMUTATION_LOG_LEVEL, 10)
     : LogLevel.WARN,
   timestamps: process.env.TRANSMUTATION_LOG_TIMESTAMPS === 'true',
 });
-

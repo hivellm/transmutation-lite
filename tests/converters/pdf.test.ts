@@ -36,7 +36,9 @@ describe('PdfConverter', () => {
     });
 
     it('should extract text from multi-page PDF', async () => {
-      const buffer = readFileSync(join(fixturesDir, 'arxiv-2510.21618-deepagent.pdf'));
+      const buffer = readFileSync(
+        join(fixturesDir, 'arxiv-2510.21618-deepagent.pdf')
+      );
       const result = await converter.convert(buffer);
 
       expect(result.markdown).toContain('DeepAgent');
@@ -62,7 +64,9 @@ describe('PdfConverter', () => {
     });
 
     it('should accept page limit option', async () => {
-      const buffer = readFileSync(join(fixturesDir, 'arxiv-2510.21618-deepagent.pdf'));
+      const buffer = readFileSync(
+        join(fixturesDir, 'arxiv-2510.21618-deepagent.pdf')
+      );
       const result = await converter.convert(buffer, { maxPages: 3 });
 
       // Should accept the option without errors
@@ -72,7 +76,9 @@ describe('PdfConverter', () => {
 
     it('should preserve formatting by default', async () => {
       const buffer = readFileSync(join(fixturesDir, 'arxiv-2510.21695.pdf'));
-      const result = await converter.convert(buffer, { preserveFormatting: true });
+      const result = await converter.convert(buffer, {
+        preserveFormatting: true,
+      });
 
       // Should not have excessive whitespace
       expect(result.markdown).not.toMatch(/   +/); // No 3+ spaces
@@ -80,7 +86,9 @@ describe('PdfConverter', () => {
     });
 
     it('should handle large PDF', async () => {
-      const buffer = readFileSync(join(fixturesDir, 'arxiv-2510.21618-deepagent.pdf'));
+      const buffer = readFileSync(
+        join(fixturesDir, 'arxiv-2510.21618-deepagent.pdf')
+      );
       const result = await converter.convert(buffer);
 
       expect(result.markdown).toBeDefined();
@@ -91,14 +99,18 @@ describe('PdfConverter', () => {
   describe('edge cases', () => {
     it('should handle conversion without formatting cleanup', async () => {
       const buffer = readFileSync(join(fixturesDir, 'arxiv-2510.21695.pdf'));
-      const result = await converter.convert(buffer, { preserveFormatting: false });
+      const result = await converter.convert(buffer, {
+        preserveFormatting: false,
+      });
 
       expect(result.markdown).toBeDefined();
       expect(result.markdown.length).toBeGreaterThan(0);
     });
 
     it('should clean up text properly', async () => {
-      const buffer = readFileSync(join(fixturesDir, 'arxiv-2510.21275-uct.pdf'));
+      const buffer = readFileSync(
+        join(fixturesDir, 'arxiv-2510.21275-uct.pdf')
+      );
       const result = await converter.convert(buffer);
 
       // Should contain actual content
@@ -107,4 +119,3 @@ describe('PdfConverter', () => {
     });
   });
 });
-
