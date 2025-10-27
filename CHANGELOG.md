@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-10-27
+
+### Added
+
+- **Performance Optimizations** (Phase 2):
+  - Result caching with LRU strategy and SHA-256 content hashing
+  - Configurable cache size and TTL (time-to-live)
+  - Cache statistics API (size, hits, memory usage)
+  - Performance benchmark suite with detailed metrics
+  - Benchmark comparison tool for tracking changes
+- **24 Cache Tests**: Complete test coverage for caching functionality
+- **Benchmark Tools**:
+  - `BenchmarkRunner` for automated performance testing
+  - Comparison tool for baseline vs current performance
+  - Metrics: throughput (MB/s), timing, memory usage
+
+### Changed
+
+- `Converter` now accepts configuration options (`enableCache`, `cacheSize`, `cacheMaxAge`)
+- Total test count increased to 94 tests (100% passing)
+- Performance improvements with cache hit rates
+
+### Documentation
+
+- Added benchmarking README with usage examples
+- Cache API documentation
+- Performance optimization guide
+
 ## [0.3.0] - 2025-10-27
 
 ### Added
