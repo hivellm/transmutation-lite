@@ -7,8 +7,8 @@
 [![Build](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml/badge.svg)](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Version:** 0.6.0  
-**Status:** ✅ Production Ready - 177/177 Tests Passing
+**Version:** 0.6.1  
+**Status:** ✅ Production Ready - 177/177 Tests Passing (100%)
 
 ## Overview
 
@@ -55,18 +55,16 @@ Transmutation Lite is a lightweight, TypeScript-based document conversion librar
 
 ### Installation
 
-> **Note**: This package is not yet published to npm. For now, use it locally within the HiveLLM monorepo.
+**npm installation (recommended):**
+```bash
+npm install @hivellm/transmutation-lite
+```
 
 **Local usage (within monorepo):**
 ```bash
 # From classify project
 npm install
 # Uses: "file:../transmutation-lite" dependency
-```
-
-**Future npm installation (when published):**
-```bash
-npm install @hivellm/transmutation-lite
 ```
 
 ### Library Usage
@@ -463,7 +461,7 @@ Estimated conversion times:
 | **Archives** | ❌ No | ✅ Yes (ZIP, TAR, etc.) |
 | **Setup** | ✅ npm install (local) | Requires Rust/binary |
 | **Integration** | ✅ Easy (Node.js) | Moderate (CLI/FFI) |
-| **Status** | 🚧 In Development | ✅ Production Ready |
+| **Status** | ✅ Production Ready | ✅ Production Ready |
 
 **Recommendation**: For production use cases requiring high-quality document conversion, we **strongly recommend** using the full [Transmutation](https://github.com/hivellm/transmutation) Rust library. Transmutation Lite is ideal for:
 - Quick document classification (like HiveLLM Classify)
@@ -543,7 +541,7 @@ This project follows the HiveLLM ecosystem standards:
 4. Semantic versioning
 5. Conventional commits
 
-**Current Status**: Initial implementation complete, needs more comprehensive testing before production use.
+**Current Status**: Production ready - 177/177 tests passing, fully documented, ready for npm publication.
 
 ## Changelog
 

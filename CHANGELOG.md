@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2025-10-27
+
+### Fixed
+
+- **TypeScript Type Error**: Fixed implicit 'any' type in `docx.ts` converter (line 50)
+  - Added explicit type annotation for mammoth message mapping
+
+### Added
+
+- **LICENSE file**: MIT License now included in package root
+- **Documentation Updates**: Updated STATUS.md and tasks.md to reflect 100% completion
+
 ## [0.6.0] - 2025-10-27
 
 ### Added
@@ -24,6 +36,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Test status: 177/177 passing (was 167/177 with 10 skipped)
 - Office fixtures created via JSZip using Office Open XML format
 - Scripts for regenerating fixtures included
+
+### Infrastructure
+
+- npm organization @hivellm configured
+- NPM_TOKEN secrets configured for CI/CD
+- Package ready for npm publication (60.1 KB compressed)
 
 ## [0.5.0] - 2025-10-27
 
