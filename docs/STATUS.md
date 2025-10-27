@@ -73,7 +73,7 @@ Transmutation Lite is a simplified TypeScript document converter designed for th
 - `07bd4f0` - test: reorganizar estrutura
 - `cc99acd` - fix: corrigir HtmlConverter
 - `39aa12c` - test: adicionar integração e CLI
-- `0e56baa` - docs: marcar Fase 1 como concluída
+- `0e56baa` - docs: marcar Phase 1 como concluída
 
 ## Phase 2: Performance & Optimization ✅ COMPLETED
 

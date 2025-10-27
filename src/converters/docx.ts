@@ -47,7 +47,10 @@ export class DocxConverter extends BaseConverter {
       // Collect warnings from mammoth
       if (result.messages.length > 0) {
         warnings.push(
-          ...result.messages.map((msg: { type: string; message: string }) => `${msg.type}: ${msg.message}`)
+          ...result.messages.map(
+            (msg: { type: string; message: string }) =>
+              `${msg.type}: ${msg.message}`
+          )
         );
       }
 

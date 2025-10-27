@@ -1,3 +1,8 @@
-tests/test-fixtures/pdf/*.pdf
 *.pdf
-
+*.map
+package-lock.json
+node_modules/
+tests/test-fixtures/**/*.pdf
+tests/test-fixtures/pdf/
+dist/
+coverage/
