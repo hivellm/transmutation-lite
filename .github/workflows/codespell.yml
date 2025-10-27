@@ -24,6 +24,7 @@ jobs:
       - name: Run Codespell
         run: |
           codespell \
-            --skip="*.lock,*.json,*.map,*.yaml,*.yml,target,node_modules,.git,dist" \
-            --ignore-words-list="crate,ser,deser"
+            --skip=".git,.github,target,node_modules,*.lock,*.json,*.map,*.yaml,*.yml,dist,coverage,tests/test-fixtures,*.pdf" \
+            --ignore-words=.codespellignore \
+            --quiet-level=2
 

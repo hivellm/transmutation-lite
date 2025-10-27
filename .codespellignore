@@ -1,8 +1,22 @@
-*.pdf
-*.map
-package-lock.json
-node_modules/
-tests/test-fixtures/**/*.pdf
-tests/test-fixtures/pdf/
-dist/
-coverage/
+# Codespell ignore words (not files/directories)
+# For files/directories, use --skip parameter in the command
+
+# Common abbreviations in code/docs
+nd
+Nd
+ND
+bu
+Bu
+BU
+te
+Te
+TE
+fo
+Fo
+FO
+ot
+Ot
+OT
+ue
+Ue
+UE
