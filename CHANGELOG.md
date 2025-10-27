@@ -11,11 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Comprehensive Test Suite**: 58 tests with 100% passing rate
-  - 30 unit tests for converters (HTML: 17, TXT: 13)
+- **Comprehensive Test Suite**: 70 tests with 100% passing rate
+  - 42 unit tests for converters (HTML: 17, TXT: 13, PDF: 12)
   - 16 core converter tests
   - 9 integration tests
   - 3 CLI tests
+- **Real-World Testing**: PDF tests using actual arXiv papers
+- **Comprehensive Examples**: 5 detailed usage examples
+  - Basic usage with simple conversions
+  - Format detection and auto-conversion
+  - Batch processing with parallel execution
+  - Advanced options showcase
+  - Error handling best practices
 - **GitHub Actions Workflows**: Complete CI/CD automation
   - `test.yml`: Multi-OS (Ubuntu, Windows, macOS) and multi-Node (18, 20, 22) testing
   - `lint.yml`: ESLint, TypeScript type-check, Prettier validation
@@ -44,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HTML conversion compatibility with happy-dom environment
 - Conversion time tracking (now allows 0ms for very fast conversions)
 - List bullet markers in HTML conversion (uses `-` instead of `*`)
+- PDF parsing using `pdf-parse-new` with CommonJS module support
 
 ## [0.1.0] - 2025-10-27
 
