@@ -2,8 +2,13 @@
 
 > Simplified TypeScript document converter for common formats to Markdown
 
-**Version:** 0.1.0  
-**Status:** 🚧 In Development - Not Published
+[![Tests](https://github.com/hivellm/transmutation-lite/actions/workflows/test.yml/badge.svg)](https://github.com/hivellm/transmutation-lite/actions/workflows/test.yml)
+[![Lint](https://github.com/hivellm/transmutation-lite/actions/workflows/lint.yml/badge.svg)](https://github.com/hivellm/transmutation-lite/actions/workflows/lint.yml)
+[![Build](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml/badge.svg)](https://github.com/hivellm/transmutation-lite/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Version:** 0.2.0  
+**Status:** ✅ Ready for Publication
 
 ## Overview
 
