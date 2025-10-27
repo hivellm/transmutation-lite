@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-10-27
+
+### Added
+
+- **PDF Converter Tests**: 12 comprehensive tests with real arXiv papers
+- **Usage Examples**: 5 detailed examples covering all major use cases
+- **Examples Documentation**: README with patterns and best practices
+
+### Changed
+
+- Migrated from `pdf-parse` to `pdf-parse-new` for better ESM compatibility
+- Updated overall test count to 70 tests (100% passing)
+- Improved PDF converter with proper CommonJS module handling
+
+### Documentation
+
+- Updated STATUS.md: now at 60% completion (5 of 10 phases complete)
+- Enhanced CHANGELOG with detailed changes
+- Added comprehensive examples for library usage
+
 ## [0.2.0] - 2025-10-27
 
 ### Added
