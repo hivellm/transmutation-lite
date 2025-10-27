@@ -7,26 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-10-27
+
 ### Added
 
-- Comprehensive test suite with 58 tests (100% passing)
-- GitHub Actions workflows (test, lint, build, release)
-- Test fixtures for HTML and TXT formats
-- Integration tests for batch conversion and error handling
-- CLI tests for command-line interface
-- Improved HTML converter with body content extraction
-- Script/style tag removal from HTML
+- **Comprehensive Test Suite**: 58 tests with 100% passing rate
+  - 30 unit tests for converters (HTML: 17, TXT: 13)
+  - 16 core converter tests
+  - 9 integration tests
+  - 3 CLI tests
+- **GitHub Actions Workflows**: Complete CI/CD automation
+  - `test.yml`: Multi-OS (Ubuntu, Windows, macOS) and multi-Node (18, 20, 22) testing
+  - `lint.yml`: ESLint, TypeScript type-check, Prettier validation
+  - `build.yml`: Build verification and artifact upload
+  - `release.yml`: Automated npm publishing with provenance
+- **Test Infrastructure**:
+  - Test fixtures for HTML and TXT formats
+  - Integration tests for batch conversion and error handling
+  - CLI tests for command-line options
+- **Package Configuration**:
+  - `.npmignore` to exclude unnecessary files from package
+  - Improved `.gitignore` with coverage and temp files
+- **Quality Improvements**:
+  - HTML converter with body content extraction
+  - Script and style tag removal from HTML
+  - Better error handling in converters
 
 ### Changed
 
-- Reorganized test structure to `/tests` directory
-- Updated Vitest configuration for happy-dom environment
-- Enhanced error handling in converters
+- **Test Organization**: Moved all tests from `src/` to `/tests` directory
+- **Test Environment**: Updated Vitest to use `happy-dom` for better compatibility
+- **Project Structure**: Reorganized for better maintainability
 
 ### Fixed
 
-- HTML conversion in happy-dom environment
-- Conversion time tracking (allowing 0ms for very fast conversions)
+- HTML conversion compatibility with happy-dom environment
+- Conversion time tracking (now allows 0ms for very fast conversions)
+- List bullet markers in HTML conversion (uses `-` instead of `*`)
 
 ## [0.1.0] - 2025-10-27
 
