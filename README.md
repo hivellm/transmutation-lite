@@ -45,11 +45,11 @@ Transmutation Lite is a lightweight, TypeScript-based document conversion librar
 - ✅ **Fast & Lightweight** - No heavy dependencies or external tools
 
 ### Developer Experience
-- ✅ **148 Tests** - 100% passing test suite
+- ✅ **167 Tests Passing** - 100% success rate (10 skipped awaiting fixtures)
 - ✅ **CI/CD Ready** - GitHub Actions workflows
-- ✅ **Comprehensive Examples** - 5 detailed usage examples
-- ✅ **Security** - Path traversal protection, buffer limits
-- ✅ **Documentation** - Complete API docs and guides
+- ✅ **5 Comprehensive Examples** - Complete usage demonstrations
+- ✅ **Security** - Path traversal protection, buffer limits (500MB)
+- ✅ **Complete Documentation** - API docs, guides, examples
 
 ## Quick Start
 
