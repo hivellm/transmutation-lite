@@ -11,13 +11,13 @@ import type {
 export interface IConverter {
   /**
    * Convert a file buffer to markdown
-   * @param buffer - File buffer to convert
-   * @param options - Conversion options
+   * @param _buffer - File buffer to convert
+   * @param _options - Conversion options
    * @returns Conversion result with markdown and metadata
    */
   convert(
-    buffer: Buffer,
-    options?: ConversionOptions
+    _buffer: Buffer,
+    _options?: ConversionOptions
   ): Promise<ConversionResult>;
 
   /**
@@ -27,9 +27,9 @@ export interface IConverter {
 
   /**
    * Check if this converter can handle the given file extension
-   * @param extension - File extension (without dot)
+   * @param _extension - File extension (without dot)
    */
-  canHandle(extension: string): boolean;
+  canHandle(_extension: string): boolean;
 }
 
 /**
@@ -37,13 +37,13 @@ export interface IConverter {
  */
 export abstract class BaseConverter implements IConverter {
   abstract convert(
-    buffer: Buffer,
-    options?: ConversionOptions
+    _buffer: Buffer,
+    _options?: ConversionOptions
   ): Promise<ConversionResult>;
 
   abstract getFormat(): DocumentFormat;
 
-  abstract canHandle(extension: string): boolean;
+  abstract canHandle(_extension: string): boolean;
 
   /**
    * Create base metadata object

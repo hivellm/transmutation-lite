@@ -1,4 +1,4 @@
-import pdfParse from 'pdf-parse';
+import * as pdfParse from 'pdf-parse';
 import { BaseConverter } from './base.js';
 import {
   DocumentFormat,
@@ -27,7 +27,7 @@ export class PdfConverter extends BaseConverter {
     const warnings: string[] = [];
 
     try {
-      const data = await pdfParse(buffer);
+      const data = await (pdfParse as any).default(buffer);
 
       let text = data.text;
 

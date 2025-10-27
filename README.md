@@ -9,6 +9,15 @@
 
 Transmutation Lite is a lightweight, TypeScript-based document conversion library that converts common document formats (PDF, DOCX, XLSX, PPTX, HTML, TXT) to Markdown. Designed specifically for integration with the HiveLLM Classify project, it provides fast, reliable conversions without the complexity of OCR, audio, video, or archive processing.
 
+> **⚠️ Important**: This is a **simplified version** optimized for use cases that **do not require high precision**, such as document classification. For production applications requiring high-quality conversion, advanced features, and superior performance, we **strongly recommend** using the full [Transmutation](https://github.com/hivellm/transmutation) Rust library, which offers:
+> - **98x faster** performance than Docling
+> - **80%+ conversion quality** with precision mode
+> - Advanced OCR, audio, and video processing
+> - Enterprise-grade reliability and accuracy
+> 
+> **Use Transmutation Lite for**: Document classification, quick previews, prototyping  
+> **Use Transmutation (Rust) for**: RAG systems, production pipelines, high-quality document processing
+
 ## Features
 
 - ✅ **PDF to Markdown** - Using `pdf-parse` for text extraction
@@ -394,8 +403,27 @@ Typical conversion times on modern hardware:
 - **No Archives** - ZIP, TAR, and other archives are not supported
 - **PPTX Quality** - PowerPoint conversion is basic (text-only)
 - **Images** - Image extraction is not implemented in this lite version
+- **Lower Precision** - Text extraction quality is lower than the Rust version
 
-For advanced features (OCR, audio, video, archives), use the full [Transmutation](https://github.com/hivellm/transmutation) Rust library.
+### When to Use Transmutation Lite vs Full Transmutation
+
+| Feature | Transmutation Lite (TypeScript) | Transmutation (Rust) |
+|---------|--------------------------------|---------------------|
+| **Best For** | Document classification, quick previews | RAG systems, production pipelines |
+| **Precision** | ⚠️ Good (~60-70%) | ✅ Excellent (80%+) |
+| **Performance** | Fast | ✅ **98x faster** than Docling |
+| **Memory** | Low (~50MB) | ✅ Very Low (~20MB) |
+| **OCR Support** | ❌ No | ✅ Yes (Tesseract) |
+| **Audio/Video** | ❌ No | ✅ Yes (Whisper) |
+| **Archives** | ❌ No | ✅ Yes (ZIP, TAR, etc.) |
+| **Setup** | ✅ npm install | Requires Rust/binary |
+| **Integration** | ✅ Easy (Node.js) | Moderate (CLI/FFI) |
+
+**Recommendation**: For production use cases requiring high-quality document conversion, we **strongly recommend** using the full [Transmutation](https://github.com/hivellm/transmutation) Rust library. Transmutation Lite is ideal for:
+- Quick document classification (like HiveLLM Classify)
+- Prototyping and development
+- Simple text extraction where precision is not critical
+- Node.js-only environments without Rust toolchain
 
 ## Development
 
@@ -450,9 +478,9 @@ transmutation-lite/
 
 ## Related Projects
 
-- **[Classify](../classify/)** - Intelligent document classification using LLMs
-- **[Transmutation](../transmutation/)** - Full-featured Rust document converter
-- **[Vectorizer](../vectorizer/)** - Vector database and search engine
+- **[Classify](../classify/)** - Intelligent document classification using LLMs (uses Transmutation Lite)
+- **[Transmutation](https://github.com/hivellm/transmutation)** ⭐ - **Recommended**: Full-featured Rust document converter with 98x performance and 80%+ quality
+- **[Vectorizer](../vectorizer/)** - Vector database and search engine (uses full Transmutation)
 - **[Nexus](../nexus/)** - Graph database with vector search
 
 ## License

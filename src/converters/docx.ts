@@ -27,7 +27,7 @@ export class DocxConverter extends BaseConverter {
     const warnings: string[] = [];
 
     try {
-      const result = await mammoth.convertToMarkdown(
+      const result = await (mammoth as any).convertToMarkdown(
         { buffer },
         {
           styleMap: [
@@ -46,7 +46,7 @@ export class DocxConverter extends BaseConverter {
       // Collect warnings from mammoth
       if (result.messages.length > 0) {
         warnings.push(
-          ...result.messages.map((msg) => `${msg.type}: ${msg.message}`)
+          ...result.messages.map((msg: any) => `${msg.type}: ${msg.message}`)
         );
       }
 

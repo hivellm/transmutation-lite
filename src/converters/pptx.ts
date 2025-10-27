@@ -1,4 +1,3 @@
-import * as XLSX from 'xlsx';
 import { BaseConverter } from './base.js';
 import {
   DocumentFormat,
@@ -24,7 +23,7 @@ export class PptxConverter extends BaseConverter {
 
   async convert(
     buffer: Buffer,
-    options?: ConversionOptions
+    _options?: ConversionOptions
   ): Promise<ConversionResult> {
     const startTime = Date.now();
     const warnings: string[] = [];
