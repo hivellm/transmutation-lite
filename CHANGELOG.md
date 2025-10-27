@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-10-27
+
+### Added
+
+- **Developer Experience Improvements** (Phase 4):
+  - Comprehensive logging system with levels (DEBUG, INFO, WARN, ERROR, NONE)
+  - Input validation for buffers, formats, file paths, and options
+  - Enhanced error messages with context and suggestions
+  - Logger class with timestamps, prefixes, and child loggers
+  - Cache configuration validation
+  - Better file system error handling (ENOENT, EACCES)
+- **37 new tests**: Complete coverage for logging and validation
+- **Environment Variables**: `TRANSMUTATION_LOG_LEVEL` and `TRANSMUTATION_LOG_TIMESTAMPS`
+
+### Changed
+
+- `Converter` now validates all inputs by default (can be disabled)
+- Error messages now list supported formats and provide better guidance
+- File path validation prevents dangerous patterns
+- Total test count increased to 131 tests (100% passing)
+
+### Security
+
+- Added validation against path traversal attacks
+- Added protection against system directory access
+- Buffer size limits (500MB max) to prevent memory issues
+
 ## [0.4.0] - 2025-10-27
 
 ### Added
