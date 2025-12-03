@@ -1,6 +1,6 @@
 {
-  "name": "@hivellm/transmutation-lite",
-  "version": "0.6.1",
+  "name": "@hivehub/transmutation-lite",
+  "version": "0.6.2",
   "description": "Simplified document converter for common formats (PDF, DOCX, XLSX, PPTX) to Markdown",
   "type": "module",
   "main": "./dist/index.js",
